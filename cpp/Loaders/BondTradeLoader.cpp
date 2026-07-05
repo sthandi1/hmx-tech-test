@@ -12,6 +12,11 @@ BondTrade* BondTradeLoader::createTradeFromLine(std::string line) {
     std::string item;
     
     while (std::getline(ss, item, separator)) {
+        // Remove trailing \r carriage return
+        // Back method is undefined if empty so check first
+        if (!item.empty() && item.back() == '\r')
+            item.pop_back();
+        // After \r remove then push back into vector
         items.push_back(item);
     }
     
