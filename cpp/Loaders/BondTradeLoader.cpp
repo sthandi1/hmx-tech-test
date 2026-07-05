@@ -23,7 +23,8 @@ BondTrade* BondTradeLoader::createTradeFromLine(std::string line) {
     if (items.size() < 7) {
         throw std::runtime_error("Invalid line format");
     }
-    
+
+    // Memory leak, recommend use of unique_ptr but tests rely on raw pointers
     BondTrade* trade = new BondTrade(items[6], items[0]);
     
     std::tm tm = {};
