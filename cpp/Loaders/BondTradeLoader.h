@@ -9,17 +9,19 @@
 #include <memory>
 
 class BondTradeLoader : public ITradeLoader {
-private:
     static constexpr char separator = ',';
     std::string dataFile_;
-    
-    std::unique_ptr<BondTrade> createTradeFromLine(std::string line);
-    void loadTradesFromFile(std::string filename, BondTradeList& tradeList);
-    
+
+    static std::unique_ptr<BondTrade> createTradeFromLine(const std::string &line);
+
+    void loadTradesFromFile(const std::string& filename, BondTradeList &tradeList);
+
 public:
-    std::vector<ITrade*> loadTrades() override;
-    std::string getDataFile() const override;
-    void setDataFile(const std::string& file) override;
+    std::vector<ITrade *> loadTrades() override;
+
+    [[nodiscard]] std::string getDataFile() const override;
+
+    void setDataFile(const std::string &file) override;
 };
 
 #endif // BONDTRADELOADER_H

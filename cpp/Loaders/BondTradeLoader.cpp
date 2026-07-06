@@ -8,7 +8,7 @@
 #include <memory>
 #include <vector>
 
-std::unique_ptr<BondTrade> BondTradeLoader::createTradeFromLine(std::string line) {
+std::unique_ptr<BondTrade> BondTradeLoader::createTradeFromLine(const std::string& line) {
     std::vector<std::string> items;
     std::stringstream ss(line);
     std::string item;
@@ -43,7 +43,7 @@ std::unique_ptr<BondTrade> BondTradeLoader::createTradeFromLine(std::string line
     return trade;
 }
 
-void BondTradeLoader::loadTradesFromFile(std::string filename, BondTradeList &tradeList) {
+void BondTradeLoader::loadTradesFromFile(const std::string& filename, BondTradeList &tradeList) {
     if (filename.empty()) {
         throw std::invalid_argument("Filename cannot be null");
     }
