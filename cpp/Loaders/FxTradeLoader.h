@@ -3,11 +3,13 @@
 
 #include "ITradeLoader.h"
 #include "../Models/FxTrade.h"
+#include "../Models/TradeList.h"
 #include <string>
 #include <vector>
 
 class FxTradeLoader : public ITradeLoader {
-    static FxTrade* createTradeFromLine(const std::string &line);
+    FxTrade* createTradeFromLine(const std::string &line);
+    void loadTradesFromFile(const std::string& filename, TradeList &tradeList);
 
     std::string dataFile_;
     const std::string separator = "\xC2\xAC";
