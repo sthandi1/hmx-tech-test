@@ -8,7 +8,7 @@
 #include <memory>
 #include <vector>
 
-std::unique_ptr<BondTrade> BondTradeLoader::createTradeFromLine(const std::string& line) {
+BondTrade* BondTradeLoader::createTradeFromLine(const std::string& line) {
     std::vector<std::string> items;
     std::stringstream ss(line);
     std::string item;
@@ -27,7 +27,7 @@ std::unique_ptr<BondTrade> BondTradeLoader::createTradeFromLine(const std::strin
     }
 
     // Memory leak, recommend use of unique_ptr but tests rely on raw pointers
-    auto trade = std::make_unique<BondTrade>(items[6], items[0]);
+    BondTrade* trade = new BondTrade(items[6], items[0]);
 
     std::tm tm = {};
     std::istringstream dateStream(items[1]);
@@ -58,7 +58,7 @@ void BondTradeLoader::loadTradesFromFile(const std::string& filename, BondTradeL
     while (std::getline(stream, line)) {
         if (lineCount == 0) {
         } else {
-            tradeList.add(createTradeFromLine(line).get());
+            tradeList.add(createTradeFromLine(line));
         }
         lineCount++;
     }

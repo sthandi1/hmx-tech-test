@@ -12,9 +12,9 @@ class BondTradeLoader : public ITradeLoader {
     static constexpr char separator = ',';
     std::string dataFile_;
 
-    static std::unique_ptr<BondTrade> createTradeFromLine(const std::string &line);
+    BondTrade* createTradeFromLine(const std::string &line);
 
-    static void loadTradesFromFile(const std::string& filename, BondTradeList &tradeList);
+    void loadTradesFromFile(const std::string& filename, BondTradeList &tradeList);
 
 public:
     std::vector<ITrade *> loadTrades() override;
