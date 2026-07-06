@@ -31,12 +31,14 @@ FxTrade *FxTradeLoader::createTradeFromLine(const std::string &line) {
     }
     auto *trade = new FxTrade(items[8], items[0]);
 
+    // Trade date
     std::tm tm = {};
     std::istringstream dateStream(items[1]);
     dateStream >> std::get_time(&tm, "%Y-%m-%d");
     auto timePoint = std::chrono::system_clock::from_time_t(std::mktime(&tm));
     trade->setTradeDate(timePoint);
 
+    // Value date
     std::tm valueTm = {};
     std::istringstream valueDateStream(items[6]);
     valueDateStream >> std::get_time(&valueTm, "%Y-%m-%d");
