@@ -69,8 +69,8 @@ std::vector<ITrade *> BondTradeLoader::loadTrades() {
     loadTradesFromFile(dataFile_, tradeList);
 
     std::vector<ITrade *> result;
-    for (size_t i = 0; i < tradeList.size(); ++i) {
-        result.push_back(tradeList[i]);
+    for (auto i : tradeList) {
+        result.push_back(i);
     }
     return result;
 }
