@@ -14,7 +14,7 @@ class BondTradeLoader : public ITradeLoader {
 
     static std::unique_ptr<BondTrade> createTradeFromLine(const std::string &line);
 
-    void loadTradesFromFile(const std::string& filename, BondTradeList &tradeList);
+    static void loadTradesFromFile(const std::string& filename, BondTradeList &tradeList);
 
 public:
     std::vector<ITrade *> loadTrades() override;
