@@ -8,9 +8,9 @@ std::vector<ITrade*> FxTradeLoader::loadTrades() {
 }
 
 std::string FxTradeLoader::getDataFile() const {
-    throw std::runtime_error("Not implemented");
+    return dataFile_;
 }
 
 void FxTradeLoader::setDataFile(const std::string& file) {
-    throw std::runtime_error("Not implemented");
+    dataFile_ = file;
 }
