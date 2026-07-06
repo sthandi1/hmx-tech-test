@@ -7,7 +7,7 @@
 #include <vector>
 
 class FxTradeLoader : public ITradeLoader {
-    FxTrade* createTradeFromLine(const std::string &line);
+    static FxTrade* createTradeFromLine(const std::string &line);
 
     std::string dataFile_;
     const std::string separator = "\xC2\xAC";
