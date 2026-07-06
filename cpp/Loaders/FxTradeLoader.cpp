@@ -30,11 +30,19 @@ FxTrade *FxTradeLoader::createTradeFromLine(const std::string &line) {
         throw std::runtime_error("Invalid line format");
     }
     auto *trade = new FxTrade(items[8], items[0]);
+
     std::tm tm = {};
     std::istringstream dateStream(items[1]);
     dateStream >> std::get_time(&tm, "%Y-%m-%d");
     auto timePoint = std::chrono::system_clock::from_time_t(std::mktime(&tm));
     trade->setTradeDate(timePoint);
+
+    std::tm valueTm = {};
+    std::istringstream valueDateStream(items[6]);
+    valueDateStream >> std::get_time(&valueTm, "%Y-%m-%d");
+    auto valueTimePoint = std::chrono::system_clock::from_time_t(std::mktime(&valueTm));
+    trade->setValueDate(valueTimePoint);
+
     // Concatenate Ccy1 Ccy2
     trade->setInstrument(items[2] + items[3]);
     trade->setCounterparty(items[7]);
