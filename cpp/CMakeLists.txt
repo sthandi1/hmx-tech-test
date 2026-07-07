@@ -53,9 +53,12 @@ add_library(RiskSystem
     RiskSystem/ParallelPricer.cpp
     RiskSystem/ScreenResultPrinter.h
     RiskSystem/ScreenResultPrinter.cpp
+    ThirdParty/pugixml.cpp
 )
 
-target_include_directories(RiskSystem PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(RiskSystem PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty)
 target_link_libraries(RiskSystem Models Loaders Pricers)
 
 # Find and link threading library (required for Exercise 8)
