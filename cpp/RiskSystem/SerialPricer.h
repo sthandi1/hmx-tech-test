@@ -10,8 +10,7 @@
 #include <string>
 
 class SerialPricer {
-private:
-    std::map<std::string, IPricingEngine*> pricers_;
+    std::map<std::string, std::unique_ptr<IPricingEngine>> pricers_;
     void loadPricers();
     
 public:
