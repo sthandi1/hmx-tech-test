@@ -36,9 +36,7 @@ void SerialPricer::price(const std::vector<std::vector<ITrade*>>& tradeContainer
                 resultReceiver->addError(trade->getTradeId(), "No Pricing Engines available for this trade type");
                 continue;
             }
-            
-            IPricingEngine* pricer = pricers_[tradeType].get();
-            pricer->price(trade, resultReceiver);
+            pricers_.at(tradeType)->price(trade, resultReceiver);
         }
     }
 }
