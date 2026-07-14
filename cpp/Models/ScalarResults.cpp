@@ -37,21 +37,48 @@ void ScalarResults::addError(const std::string& tradeId, const std::string& erro
 }
 
 ScalarResults::Iterator& ScalarResults::Iterator::operator++() {
-    throw std::runtime_error("Iterator not implemented");
+    ++it_;
+    return *this;
 }
 
 ScalarResult ScalarResults::Iterator::operator*() const {
-    throw std::runtime_error("Iterator not implemented");
+    return *it_;
 }
 
 bool ScalarResults::Iterator::operator!=(const Iterator& other) const {
-    throw std::runtime_error("Iterator not implemented");
+    return it_ != other.it_;
 }
 
 ScalarResults::Iterator ScalarResults::begin() const {
-    throw std::runtime_error("Not implemented");
+    cache_.clear();
+    // Loop over results using structured bindings
+    for (const auto & [tradeId, result] : results_) {
+        // Find iterator to error if exists
+        auto errorIt = errors_.find(tradeId);
+        std::optional<std::string> error = std::nullopt;
+        if (errorIt != errors_.end()) {
+            // Dereference iterator pointer and store string value in optional
+            error = errorIt->second;
+        }
+        else {
+            // If there is no error then store a null optional
+            error = std::nullopt;
+        }
+        cache_.emplace_back(tradeId, result, error);
+    }
+
+    // In case result isn't set loop over errors map too
+
+    for (const auto & [tradeId, error] : errors_) {
+        // Maps can only have a single key, so check if this is zero
+        if (!results_.count(tradeId)) {
+            // No result value if true so store a nullopt
+            cache_.emplace_back(tradeId, std::nullopt, error);
+        }
+    }
+    return Iterator(cache_.cbegin());
 }
 
 ScalarResults::Iterator ScalarResults::end() const {
-    throw std::runtime_error("Not implemented");
+    return Iterator(cache_.cend());
 }
